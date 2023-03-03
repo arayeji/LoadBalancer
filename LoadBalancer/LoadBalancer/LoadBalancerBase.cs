@@ -73,7 +73,7 @@ namespace LoadBalancer
         long _Responses;
         long _Sends;
         long _SendBacks;
-        internal  long _Faileds;
+        internal long _Faileds;
 
         [JsonIgnore]
         public long RequestPerSecond
@@ -165,7 +165,7 @@ namespace LoadBalancer
             }
         }
 
-        internal  void AddSendBackPerSecond()
+        internal void AddSendBackPerSecond()
         {
             Interlocked.Increment(ref _SendBacks);
             DateTime dt = DateTime.Now;
@@ -261,7 +261,7 @@ namespace LoadBalancer
 
             _started = true;
         }
-         
+
 
         private void UpdateWeight_Elapsed(object? sender, System.Timers.ElapsedEventArgs e)
         {
@@ -300,16 +300,16 @@ namespace LoadBalancer
         }
 
         public abstract void Bind(EndPoint endPoint);
-         
+
         void SortServers(List<Server> ActiveServers)
         {
             List<Server> sortedServers = new List<Server>();
 
         }
 
-       
 
-       
+
+
 
         public void Stop()
         {

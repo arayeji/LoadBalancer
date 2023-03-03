@@ -26,12 +26,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="NetworkHandler">
-      <HintPath>..\..\NetworkHandler\NetworkHandler\bin\Release\net6.0-windows\NetworkHandler.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-
-  <ItemGroup>
     <None Update="Config.cfg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

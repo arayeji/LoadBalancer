@@ -1,11 +1,5 @@
 ﻿
 using Newtonsoft.Json;
-using System.Collections.Concurrent;
-using System.Diagnostics;
-using System.Net;
-using System.Net.NetworkInformation;
-using System.Net.Sockets;
-using System.Text; 
 
 namespace LoadBalancer
 {
@@ -65,7 +59,7 @@ namespace LoadBalancer
         }
         [JsonIgnore]
         public Statistic? Statistics;
-      
+
         internal int Failures = 0;
         internal int Successes = 0;
 
@@ -107,6 +101,6 @@ namespace LoadBalancer
             return healthChecker;
         }
     }
-   
-  
+
+
 }

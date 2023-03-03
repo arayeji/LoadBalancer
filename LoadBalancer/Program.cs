@@ -12,7 +12,7 @@ namespace LoadBalancer
         {
             config.Load();
 
-            foreach(var sg in config.ServerGroups)
+            foreach (var sg in config.ServerGroups)
             {
                 sg.Start();
                 sg.Binding();
@@ -24,18 +24,18 @@ namespace LoadBalancer
             Read();
 
         }
-         
+
 
         private static void RateUpdate_Elapsed(object? sender, System.Timers.ElapsedEventArgs e)
         {
             try
             {
-                
 
-                long Requests=0;
-                long Responses=0;
-                long Sends=0;
-                long SendBacks=0;
+
+                long Requests = 0;
+                long Responses = 0;
+                long Sends = 0;
+                long SendBacks = 0;
 
                 foreach (LoadBalancerBase group in config.ServerGroups)
                 {
@@ -46,11 +46,11 @@ namespace LoadBalancer
 
                 }
 
-                Console.Title = "Request TPS=(" + Requests + ") Send TPS=(" + Sends + ") Response TPS=(" + Responses + ") SendBack TPS=(" +SendBacks+ ")";
+                Console.Title = "Request TPS=(" + Requests + ") Send TPS=(" + Sends + ") Response TPS=(" + Responses + ") SendBack TPS=(" + SendBacks + ")";
             }
-            catch  
+            catch
             {
-                 
+
             }
         }
         static bool StressTesting = false;
@@ -68,7 +68,7 @@ namespace LoadBalancer
                     int x = 0;
                 });
 
-             
+
             }
             catch (Exception ex)
             {
@@ -90,7 +90,7 @@ namespace LoadBalancer
                 byte[] recbt = udp.Receive(ref ipe);
 
                 string rec = Encoding.UTF8.GetString(recbt).ToLower();
-                Console.WriteLine("TestReposen: "+rec);
+                Console.WriteLine("TestReposen: " + rec);
             }
             catch (Exception ex)
             {
@@ -98,9 +98,9 @@ namespace LoadBalancer
             }
         }
 
-       static  void Read()
+        static void Read()
         {
-            string cmd= Console.ReadLine();
+            string cmd = Console.ReadLine();
             if (cmd != null)
             {
                 if (cmd.ToLower().StartsWith("save "))
@@ -132,15 +132,15 @@ namespace LoadBalancer
                 {
                     foreach (LoadBalancerBase group in config.ServerGroups)
                     {
-                        Console.WriteLine(group.GroupName+": Request TPS=("+group.RequestPerSecond+ ") Response TPS=(" + group.ResponsePerSecond + ") Send TPS=(" + group.SendPerSecond + ") SendBack TPS=(" + group.SendBackPerSecond + ")\r\n\r\n");
-                        Console.WriteLine("Request To LoadBalaner= ("+group.Requests+ ")\r\nSent To Servers=(" + group.Sends + ")\r\nResponse From Servers=(" + group.Responses + ")\r\nSentBack To Requesters=(" + group.SendBacks + ")\r\nFailed To Receive From Servers=(" + group.Faileds + ")\r\n\r\n");
+                        Console.WriteLine(group.GroupName + ": Request TPS=(" + group.RequestPerSecond + ") Response TPS=(" + group.ResponsePerSecond + ") Send TPS=(" + group.SendPerSecond + ") SendBack TPS=(" + group.SendBackPerSecond + ")\r\n\r\n");
+                        Console.WriteLine("Request To LoadBalaner= (" + group.Requests + ")\r\nSent To Servers=(" + group.Sends + ")\r\nResponse From Servers=(" + group.Responses + ")\r\nSentBack To Requesters=(" + group.SendBacks + ")\r\nFailed To Receive From Servers=(" + group.Faileds + ")\r\n\r\n");
 
                         foreach (Server server in group.Servers)
                         {
-                            Console.WriteLine(server.IPAddress +" ("+server.Status+")\r\nRequests: "+server.Statistics.Requests+" , Responses: "+server.Statistics.Responses +" , NoResponse: "+(server.Statistics.Requests-server.Statistics.Responses) + " , TimedOut: " + server.Statistics.TimeOuts + " , ResponseTime: " + server.Statistics.ResponseTime);
+                            Console.WriteLine(server.IPAddress + " (" + server.Status + ")\r\nRequests: " + server.Statistics.Requests + " , Responses: " + server.Statistics.Responses + " , NoResponse: " + (server.Statistics.Requests - server.Statistics.Responses) + " , TimedOut: " + server.Statistics.TimeOuts + " , ResponseTime: " + server.Statistics.ResponseTime);
                             foreach (HealthChecker checker in server.HealthCheckers.Values)
                             {
-                                Console.WriteLine(checker.Type+" - "+ checker.Status +" - ResponseTime: "+checker.Statistics.ResponseTime);
+                                Console.WriteLine(checker.Type + " - " + checker.Status + " - ResponseTime: " + checker.Statistics.ResponseTime);
                             }
                             Console.WriteLine("");
                         }
